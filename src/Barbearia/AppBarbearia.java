@@ -1,18 +1,18 @@
 package Barbearia;
 
-import java.util.ArrayList;
-
-import Barbearia.Base.Cliente;
 import Barbearia.Base.PointOfSale;
 import Barbearia.Geradores.GeradorDeClientes;
+import Barbearia.Gerenciadores.Barbearia;
+import Barbearia.Gerenciadores.GerenciadorDeClientes;
 
 public class AppBarbearia {
     public static void Execute() throws InterruptedException{
-        Queue<Cliente> clientes = new ArrayList<>();
-        PointOfSale pos = new PointOfSale();
-        GeradorDeClientes ger = new GeradorDeClientes(clientes);
+        GerenciadorDeClientes gerenciadorDeClientes = new GerenciadorDeClientes();
+        var pos = new PointOfSale();
+        var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
+        var barbearia = new Barbearia(gerenciadorDeClientes,pos);
 
         ger.start();
-        ger.join();
+        barbearia.start();
     }
 }

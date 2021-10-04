@@ -1,42 +1,69 @@
 package Barbearia.Gerenciadores;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import Barbearia.Base.Barbeiro;
 import Barbearia.Base.Cliente;
+import Barbearia.Base.PointOfSale;
 
 public class Barbearia extends Thread{
     private ArrayList<Barbeiro> _barbeiros = new ArrayList<>();
-    private Queue<Cliente> _clientes = new LinkedList<>();
+    private GerenciadorDeClientes _gerenciadorDeClientes;
+    private PointOfSale _pos;
 
-    public Barbearia(Queue<Cliente> clientes) {
+    public Barbearia(
+        GerenciadorDeClientes gerenciadorDeClientes,
+        PointOfSale pos
+    ) {
         super("Barbearia");
-        _clientes = clientes;
-        _barbeiros.add(new Barbeiro("Primeiro"));
-        _barbeiros.add(new Barbeiro("Segundo"));
-        _barbeiros.add(new Barbeiro("Terceiro"));
+        _gerenciadorDeClientes = gerenciadorDeClientes;
+        InicarBarbeiros();
+        _pos = pos;
+    }
+
+    private void InicarBarbeiros() {
+        var barbeiroUm = new Barbeiro("Primeiro",_pos);
+        barbeiroUm.start();
+        var barbeiroDois = new Barbeiro("Segundo",_pos);
+        barbeiroDois.start();
+        var barbeiroTres = new Barbeiro("Terceiro",_pos);
+        barbeiroTres.start();
+
+        _barbeiros.add(barbeiroUm);
+        _barbeiros.add(barbeiroDois);
+        _barbeiros.add(barbeiroTres);
     }
 
     public void Atender(){
         while(true){
 
-            Barbeiro barbeiro = _barbeiros
-            .stream()
-            .filter(x -> x.getEstaAtendendo())
-            .findAny()
-            .orElse(null);
+            var barbeiro = _barbeiros
+                .stream()
+                .filter(x -> !x.getEstaAtendendo())
+                .findAny()
+                .orElse(null);
         
             if(barbeiro == null)
                 continue;
 
-            Cliente cliente = _clientes.poll();
+            Cliente cliente;
+            
+            synchronized(_gerenciadorDeClientes){
+                cliente = _gerenciadorDeClientes.ObterProximoCliente();
+            }
+
+            if(cliente == null)
+                continue;
+
             barbeiro.setCliente(cliente);
         }
     }
 
     public void run(){
-        Atender();
+        while(true)
+            Atender();
     }
 
 
