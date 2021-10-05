@@ -1,21 +1,17 @@
 package Barbearia.Base;
 
 public class PointOfSale {
-    private boolean Livre;
+    private int _cortesEfetuados;
 
-    public boolean isLivre() {
-        return Livre;
-    }
-
-    public void setLivre(boolean livre) {
-        Livre = livre;
+    public PointOfSale(){
+        _cortesEfetuados = 0;
     }
 
     public void Pagar(){
         try {
             Thread.sleep(1000);
+            _cortesEfetuados++;
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

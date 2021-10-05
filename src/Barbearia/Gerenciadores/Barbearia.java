@@ -19,15 +19,17 @@ public class Barbearia extends Thread{
     ) {
         super("Barbearia");
         _gerenciadorDeClientes = gerenciadorDeClientes;
-        InicarBarbeiros();
         _pos = pos;
+        InicarBarbeiros();
     }
 
     private void InicarBarbeiros() {
         var barbeiroUm = new Barbeiro("Primeiro",_pos);
         barbeiroUm.start();
+        
         var barbeiroDois = new Barbeiro("Segundo",_pos);
         barbeiroDois.start();
+        
         var barbeiroTres = new Barbeiro("Terceiro",_pos);
         barbeiroTres.start();
 
@@ -47,6 +49,8 @@ public class Barbearia extends Thread{
         
             if(barbeiro == null)
                 continue;
+            
+            System.out.println("Tem barbeiro disponivel");
 
             Cliente cliente;
             
@@ -56,6 +60,8 @@ public class Barbearia extends Thread{
 
             if(cliente == null)
                 continue;
+
+            System.out.println("Tem cliente");
 
             barbeiro.setCliente(cliente);
         }

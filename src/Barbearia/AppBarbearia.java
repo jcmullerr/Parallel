@@ -9,10 +9,10 @@ public class AppBarbearia {
     public static void Execute() throws InterruptedException{
         GerenciadorDeClientes gerenciadorDeClientes = new GerenciadorDeClientes();
         var pos = new PointOfSale();
-        var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
-        var barbearia = new Barbearia(gerenciadorDeClientes,pos);
 
-        ger.start();
+        var barbearia = new Barbearia(gerenciadorDeClientes,pos);
         barbearia.start();
+        var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
+        ger.start();
     }
 }

@@ -19,7 +19,7 @@ public class Barbeiro extends Thread {
         _estaAtendendo = true;
     }
 
-    public void Run(){
+    public void run(){
         while(true)
             Atender();
     }
@@ -27,17 +27,21 @@ public class Barbeiro extends Thread {
     public void Atender(){
         if(_cliente == null)
             return;
+
+        System.out.println("Cliente "+ _cliente.getNome()+" esta sendo atendido por "+ _nome);
         
         try {
             sleep(1000);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         
         synchronized(_pos){
             _pos.Pagar();
+            _cliente = null;
             _estaAtendendo = false;
+            System.out.println(_nome + " encerrou o atendimento e esta aguardando novo cliente");
         }
     }
 
