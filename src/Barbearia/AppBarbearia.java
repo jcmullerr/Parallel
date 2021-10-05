@@ -11,8 +11,6 @@ public class AppBarbearia {
         var pos = new PointOfSale();
 
         var barbearia = new Barbearia(gerenciadorDeClientes,pos);
-        barbearia.start();
         var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
-        ger.start();
     }
 }

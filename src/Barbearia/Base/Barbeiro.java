@@ -12,6 +12,7 @@ public class Barbeiro extends Thread {
         _estaAtendendo = false;
         _cliente = null;
         _pos = pos;
+        start();
     }
 
     public void setCliente(Cliente cliente) {

@@ -13,6 +13,7 @@ public class GeradorDeClientes extends Thread{
     public GeradorDeClientes(Queue<Cliente> clientes) {
         super("Gerador");
         _clientes = clientes;
+        start();
     }
 
     public void run(){
@@ -24,8 +25,6 @@ public class GeradorDeClientes extends Thread{
                 var numeroCliente = _totalClientes + 1;
 
                 var cliente = CriarCliente(numeroCliente);
-
-                cliente.start();
 
                 _clientes.add(
                     cliente

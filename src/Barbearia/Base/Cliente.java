@@ -12,6 +12,7 @@ public class Cliente extends Thread{
         super(nome);
         Nome = nome;
         EstadoCliente = estadoCliente;
+        start();
     }
 
     public String getNome() {
