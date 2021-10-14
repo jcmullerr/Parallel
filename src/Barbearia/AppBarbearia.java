@@ -18,6 +18,6 @@ public class AppBarbearia {
         threadpool.scheduleAtFixedRate(() -> {
             var barbearia = new Barbearia(gerenciadorDeClientes,pos);
             var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
-        } , 0, 2, TimeUnit.SECONDS);
+        } , 0, 2, TimeUnit.MILLISECONDS);
     }
 }

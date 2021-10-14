@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import Barbearia.AppBarbearia;
+import PapaiNoel.AppPapaiNoel;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -16,8 +17,11 @@ public class App {
                 case 1 : 
                     AppBarbearia.Execute();
                     break;
+                case 2 :
+                    AppPapaiNoel.Execute();
+                    break;
                 default :
-                    throw new Exception("Ainda nao tem essa opcao");
+                    throw new Exception("Deve escolher uma opcao entre 1 e 2");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

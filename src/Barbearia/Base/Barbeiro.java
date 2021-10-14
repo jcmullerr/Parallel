@@ -1,5 +1,8 @@
 package Barbearia.Base;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Barbeiro extends Thread {
     private String _nome;
     private boolean _estaAtendendo;
@@ -32,7 +35,7 @@ public class Barbeiro extends Thread {
         System.out.println("Cliente "+ _cliente.getNome()+" esta sendo atendido por "+ _nome);
         
         try {
-            sleep(1000);
+            sleep(ThreadLocalRandom.current().nextInt(700,1001));
         } catch (Exception e) {
             e.printStackTrace();
         }
