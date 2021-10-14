@@ -68,7 +68,6 @@ public class PapaiNoel extends Thread{
                         DistribuirPresentes();
                 }
                 catch(Exception e){
-                    System.out.println("Deu ruim");
                     e.printStackTrace();
                 }
         }
