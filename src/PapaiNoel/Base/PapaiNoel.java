@@ -17,7 +17,7 @@ public class PapaiNoel extends Thread{
     )
     {
         super("PapaiNoel");
-        _estadoPapaiNoel = EEstadoPapaiNoel.Dormindo;
+        SetEstado(EEstadoPapaiNoel.Dormindo);
         _operacaoElfos = operacaoElfos;
         _operacaoRena = operacaoRena;
         start();
@@ -27,7 +27,7 @@ public class PapaiNoel extends Thread{
         return _estadoPapaiNoel != EEstadoPapaiNoel.Acordado;
     }
 
-    public void SetEstado(EEstadoPapaiNoel estado){
+    public synchronized void SetEstado(EEstadoPapaiNoel estado){
         _estadoPapaiNoel = estado;
     }
 
@@ -40,12 +40,14 @@ public class PapaiNoel extends Thread{
             throw new Exception("O papai noel não esta dormindo");
         
         Thread.sleep(ThreadLocalRandom.current().nextInt(700,1001));
-        _estadoPapaiNoel = EEstadoPapaiNoel.Acordado;
+        SetEstado(EEstadoPapaiNoel.Acordado);
     }
 
     public void AjudarElfos() throws InterruptedException{
         System.out.println("Papai noel esta ajudando os elfos");
         Thread.sleep(ThreadLocalRandom.current().nextInt(700,1001));
+        _operacaoElfos.Operar();
+        SetEstado(EEstadoPapaiNoel.Acordado);
     }
 
     public void DistribuirPresentes() throws InterruptedException{
@@ -55,7 +57,8 @@ public class PapaiNoel extends Thread{
         Thread.sleep(ThreadLocalRandom.current().nextInt(700,1001));
         System.out.println("Papai noel esta desamarrando as renas do treno");
         Thread.sleep(ThreadLocalRandom.current().nextInt(700,1001));
-        _estadoPapaiNoel = EEstadoPapaiNoel.Acordado;
+        _operacaoRena.Operar();
+        SetEstado(EEstadoPapaiNoel.Acordado);
     }
     
     public void run(){
@@ -66,6 +69,8 @@ public class PapaiNoel extends Thread{
                         AjudarElfos();
                     else if(_estadoPapaiNoel == EEstadoPapaiNoel.DistribuindoPresentes)
                         DistribuirPresentes();
+                    else
+                        SetEstado(EEstadoPapaiNoel.Dormindo);
                 }
                 catch(Exception e){
                     e.printStackTrace();

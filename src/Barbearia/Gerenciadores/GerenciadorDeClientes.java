@@ -33,7 +33,7 @@ public class GerenciadorDeClientes {
 
     private Cliente ObterProximoClienteParaSeSentar() {
         List<Cliente> clientes = (List)_clientes;
-        if(clientes.size() < 4)
+        if(clientes.size() < 4 && !clientes.isEmpty())
             return clientes.get(clientes.size()-1);
             
         _clientes = (LinkedList) clientes;

@@ -39,6 +39,6 @@ public class Elfo extends Thread{
     }
 
     private boolean DeveEntrarEmDuvida() {
-        return new Random().nextInt(100) > 25;
+        return new Random().nextInt(100) > 65;
     }
 }

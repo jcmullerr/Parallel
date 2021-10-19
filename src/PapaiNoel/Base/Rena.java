@@ -22,7 +22,7 @@ public class Rena extends Thread {
     public void run(){
         while(true)
             if(_estaDeFerias){
-                _estaDeFerias = DeveRetornarDasFerias();
+                _estaDeFerias = DeveContinuarDeFerias();
                 EntrarNaFilaDeDisponiveis();
             }
     }
@@ -32,7 +32,7 @@ public class Rena extends Thread {
             _operacao.Operar(this);
     }
 
-    private boolean DeveRetornarDasFerias() {
-        return new Random().nextInt(100) > 30;
+    private boolean DeveContinuarDeFerias() {
+        return new Random().nextInt(100000) < 999000;
     }
 }

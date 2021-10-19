@@ -2,13 +2,13 @@ package Barbearia.Geradores;
 
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.UUID;
 
 import Barbearia.Base.Cliente;
 import Barbearia.Enums.EEstadoCliente;
 
 public class GeradorDeClientes extends Thread{
     private Queue<Cliente> _clientes;
-    private int _totalClientes = 0;
 
     public GeradorDeClientes(Queue<Cliente> clientes) {
         super("Gerador");
@@ -22,16 +22,15 @@ public class GeradorDeClientes extends Thread{
                 if(_clientes.size() == 20)
                     continue;
 
-                var numeroCliente = _totalClientes + 1;
+                synchronized(this){
+                    var cliente = CriarCliente(UUID.randomUUID().toString());
 
-                var cliente = CriarCliente(numeroCliente);
-
-                _clientes.add(
-                    cliente
-                );
-                _totalClientes ++;
+                    _clientes.add(
+                        cliente
+                    );
+                    System.out.println("Cliente novo chegou - " + cliente.getNome());
+                }
                 
-                System.out.println("Cliente novo chegou - " + cliente.getNome());
 
                 sleep((int)(Math.random() * 1000));
             } catch (InterruptedException e) {
@@ -40,10 +39,10 @@ public class GeradorDeClientes extends Thread{
         }
     }
 
-    private Cliente CriarCliente(int numeroCliente) {
-        var nomeCliente = "Cliente" + numeroCliente;
+    private Cliente CriarCliente(String numeroCliente) {
+        var nomeCliente = "Cliente " + numeroCliente;
 
-        if(numeroCliente <= 4)
+        if(_clientes.size() <= 4)
             return new Cliente(nomeCliente,EEstadoCliente.Sentado);
         
         return new Cliente(nomeCliente,EEstadoCliente.EmPe);

@@ -55,7 +55,7 @@ public class PoloNorte extends Thread{
             try{
                 if(_renasDisponiveis.size() == 9)
                     AlterarStatusPapaiNoel(EEstadoPapaiNoel.DistribuindoPresentes);
-                else if(_elfosEmDuvida.size() == 9)
+                else if(_elfosEmDuvida.size() == 3)
                     AlterarStatusPapaiNoel(EEstadoPapaiNoel.AjudandoElfos);
 
             }catch(Exception e){
@@ -68,13 +68,15 @@ public class PoloNorte extends Thread{
         EEstadoPapaiNoel estado
     ) throws Exception
     {
-        if(_papaiNoel.EstaDormindo())
-            _papaiNoel.Acordar();
-        
-        while(_papaiNoel.EstaOcupado())
-            sleep(100);
-        
-        _papaiNoel.SetEstado(estado);
+        synchronized(_papaiNoel){
+            if(_papaiNoel.EstaDormindo())
+                _papaiNoel.Acordar();
+            
+            while(_papaiNoel.EstaOcupado())
+                sleep(100);
+            
+            _papaiNoel.SetEstado(estado);
+        }
     }
 
     private void CriarRenas() {

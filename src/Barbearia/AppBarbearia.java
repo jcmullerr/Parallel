@@ -15,9 +15,9 @@ public class AppBarbearia {
         var pos = new PointOfSale();
         ScheduledExecutorService threadpool = Executors.newScheduledThreadPool(1);
 
-        threadpool.scheduleAtFixedRate(() -> {
+        threadpool.scheduleWithFixedDelay(() -> {
             var barbearia = new Barbearia(gerenciadorDeClientes,pos);
             var ger = new GeradorDeClientes(gerenciadorDeClientes.getClientes());
-        } , 0, 2, TimeUnit.MILLISECONDS);
+        } , 0, 1, TimeUnit.SECONDS);
     }
 }
