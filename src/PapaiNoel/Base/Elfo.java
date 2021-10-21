@@ -18,6 +18,10 @@ public class Elfo extends Thread{
         start();
     }
 
+    public void SanarDuvida(){
+        _estaEmDuvida = false;
+    }
+
     public void EntrarNaFilaDeDuvidas(){
         _estaEmDuvida = _operacao.Operar(this);
     }

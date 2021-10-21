@@ -35,6 +35,9 @@ public class PoloNorte extends Thread{
         _renasDisponiveis.clear();
     };
     private IVoidOperation _operacaoEnviarElfosDeVoltaAoTrabalho = () -> {
+        for(Elfo elfo : _elfosEmDuvida)
+            elfo.SanarDuvida();
+
         _elfosEmDuvida.clear();
     };
     private PapaiNoel _papaiNoel;
