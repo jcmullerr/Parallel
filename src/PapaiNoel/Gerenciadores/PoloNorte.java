@@ -85,7 +85,7 @@ public class PoloNorte extends Thread{
     private void CriarRenas() {
         _renas = new ArrayList<>();
         _renasDisponiveis = new ArrayList<>();
-        for(var i = 1; i<=10; i++)  
+        for(var i = 1; i < 10; i++)  
             _renas.add(
                 new Rena(
                     "Rena " + i,
@@ -97,7 +97,7 @@ public class PoloNorte extends Thread{
     private void CriarElfos() {
         _elfos = new ArrayList<>();
         _elfosEmDuvida = new ArrayList<>();
-        for(var i = 1; i < 10; i ++)
+        for(var i = 1; i <= 10; i ++)
             _elfos.add(
                 new Elfo(
                     "Elfo "+ i,
